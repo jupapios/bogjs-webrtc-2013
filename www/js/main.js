@@ -5,7 +5,7 @@
 
 /*global window, document, log, navigator, URL, RTCPeerConnection, RTCSessionDescription, RTCIceCandidate, io, DEBUG*/
 
-(function(root, domTarget) {
+(function(root) {
 
 	'use strict';
 
@@ -20,14 +20,14 @@
 
 	// DOM elements
 	var dom = {
-		localVideo: domTarget.querySelector('#local-video'),
-		remoteVideo: domTarget.querySelector('#remote-video'),
-		localText: domTarget.querySelector('#local-text'),
-		remoteText: domTarget.querySelector('#remote-text'),		
-		reqNew: domTarget.querySelector('#req-new'),
-		reqJoin: domTarget.querySelector('#req-join'),
-		channel: domTarget.querySelector('input'),
-		send: domTarget.querySelector('#send') // send button
+		localVideo: document.getElementById('local-video'),
+		remoteVideo: document.getElementById('remote-video'),
+		localText: document.getElementById('local-text'),
+		remoteText: document.getElementById('remote-text'),		
+		reqNew: document.getElementById('req-new'),
+		reqJoin: document.getElementById('req-join'),
+		channel: document.querySelector('input'),
+		send: document.getElementById('send') // send button
 	};
 
 	var socket;
@@ -56,8 +56,8 @@
 		 * if audio or video are not defined
 		 */
 		config = config || {};
-		config.audio = config.audio || true;
-		config.video = config.video || true;
+		config.audio = typeof config.audio == 'boolean' ? config.audio : true;
+		config.video = typeof config.video == 'boolean' ? config.video : true;
 
 		navigator.getUserMedia(config, onGetUserMediaSuccess, onGetUserMediaFailed);
 
@@ -66,8 +66,11 @@
 	function onGetUserMediaSuccess(stream) {
 		log('DEBUG: [RTC] getUserMedia success', stream);
 
+		// set the src of the video creaing an URL from the local stream
 		dom.localVideo.src = URL.createObjectURL(stream);
 
+		// when the video is loaded (REALLY loaded) play an add the stream
+		// to the peer
 		dom.localVideo.addEventListener('loadedmetadata', function() {
 			this.play();
 			peer.addStream(stream);
@@ -93,7 +96,7 @@
 
 	function initPeerEvents() {
 		pc.onaddstream = onAddStream; // when remote adds stream
-		pc.onicecandidate = onIceCandidate;
+		pc.onicecandidate = onIceCandidate; // http://tools.ietf.org/html/rfc5245 xD
 		pc.onopen = onOpen; // not used
 
 		pc.ondatachannel = onDataChannel; // magic :_)
@@ -103,8 +106,10 @@
 	function onAddStream(event) {
 		log('DEBUG: [RTC] added remote stream', event);
 
+		// set the src of the video creaing an URL from the remote stream
 		dom.remoteVideo.src = URL.createObjectURL(event.stream);
 
+		// when the video is loaded (REALLY loaded) play it
 		dom.remoteVideo.addEventListener('loadedmetadata', function() {
 			this.play();
 		});
@@ -180,11 +185,11 @@
 		};
 		
 		dc.onclose = function (event) {
-			console.log('RTCDataChannel closed.');
+			log('DEBUG: [PEER] DataChannel closed');
 		};
 		
 		dc.onerror = function (event) {
-			console.error(event);
+			log('ERROR: [PEER] DataChannel', event);
 		};
 
 		if(DEBUG) {
@@ -266,7 +271,7 @@
 
 	};
 
-})(window, document.body);
+})(window);
 
 
 app.init();
