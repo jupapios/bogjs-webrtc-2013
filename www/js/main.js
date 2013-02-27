@@ -156,8 +156,6 @@
 		pc.setRemoteDescription(new RTCSessionDescription(answer));
 
 		// all it's done!
-		//socket.emit('reqDC');
-		//peer.createDataChannel();
 	};
 
 	peer.setIce = function(event) {
@@ -193,15 +191,6 @@
 			peer.dc = dc;
 		}
 	}
-	/*
-	peer.createDataChannel = function() {
-		dc = pc.createDataChannel('RTCDataChannel', {reliable: false});
-		//dc = pc.createDataChannel('RTCDataChannel', {});
-		log('DEBUG: [PEER] Called createDataChannel', dc);
-
-		initDCEvents();
-
-	};*/
 
 	peer.init = function(config) {
 		config = config || {"iceServers": []};
@@ -260,9 +249,6 @@
 
 		// got ice from peer
 		socket.on('resIce', peer.setIce);
-
-		// create datachannel
-		//socket.on('resDC', peer.createDataChannel);
 	}
 
 	app.init = function() {

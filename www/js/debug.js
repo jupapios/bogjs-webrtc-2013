@@ -1,4 +1,4 @@
-var DEBUG = DEBUG || true;
+var DEBUG = true;
 
 var log = function() {
 	if(DEBUG && window.console) {

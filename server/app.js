@@ -46,9 +46,4 @@ io.sockets.on('connection', function (socket) {
 		s[socket.id].emit('resIce', data);
 	});
 
-
-	/*socket.on('reqDC', function() {
-		s[socket.id].emit('resDC');
-		socket.emit('resDC');
-	});*/
 });
