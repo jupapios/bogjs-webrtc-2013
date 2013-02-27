@@ -1,0 +1,32 @@
+body {
+	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	padding: 20px;
+}
+
+a {
+	color: #00B7FF;
+}
+
+video, textarea {
+	box-sizing: border-box;
+	width: 100%;
+}
+
+textarea {
+	resize: none;
+}
+
+#local-text {
+	height: 2em;
+}
+
+#remote-text {
+	height: 14em;
+}
+
+.wrapper {
+	display: inline-block;
+	margin-right: 4px;
+	vertical-align: top;
+	width: 400px;
+}

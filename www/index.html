@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<head>
+	<title>WebRTC and peerConnection</title>
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+	<header>
+		<button id="req-new">new</button>
+		<input type="text" placeholder="">
+		<button id="req-join">join</button>
+	</header>
+
+	<div class="wrapper">
+		<h2>me</h2>
+		<video id="local-video"></video>
+		<textarea id="remote-text" disabled></textarea>
+		<textarea id="local-text"></textarea>
+		<button id="send">send</button>
+	</div>
+
+	<div class="wrapper">
+		<h2>other</h2>
+		<video id="remote-video"></video>
+	</div>
+
+	<div id="remote-videos"></div>
+
+	<script src="http://127.0.0.1:3000/socket.io/socket.io.js"></script>
+	
+	<script src="js/debug.js"></script>
+	<script src="js/vendor.js"></script>
+	<script src="js/main.js"></script>
