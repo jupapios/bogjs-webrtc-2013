@@ -1,10 +1,41 @@
+@font-face {
+	font-family: 'roboto';
+	src: url('../font/Roboto-Regular.ttf');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
 body {
-	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 	padding: 20px;
 }
 
-a {
-	color: #00B7FF;
+header {
+	margin-bottom: 20px;
+	transition: margin 200ms linear;
+	-webkit-transition: margin 200ms linear;
+	-moz-transition: margin 200ms linear;
+}
+
+header.hide {
+	margin-top: -55px;
+}
+
+button, input, textarea {
+	font-family: 'roboto';
+}
+
+button {
+	background-color: #00ABD7;
+	border: 1px solid #00ABD7;
+	color: white;
+	cursor: pointer;
+	font-weight: bold;
+	padding: 4px 8px;
+}
+
+button:hover {
+	opacity: .8;
 }
 
 video, textarea {
@@ -16,12 +47,26 @@ textarea {
 	resize: none;
 }
 
+input, textarea {
+	border: 1px solid gray;
+	outline: none;
+	padding: 4px 8px;
+}
+
+input:focus, textarea:focus {
+	border-color: #00ABD7;
+}
+
 #local-text {
-	height: 2em;
+	height: 3em;
 }
 
 #remote-text {
 	height: 14em;
+}
+
+#send {
+	float: right;
 }
 
 .wrapper {

@@ -27,6 +27,7 @@
 		reqNew: document.getElementById('req-new'),
 		reqJoin: document.getElementById('req-join'),
 		channel: document.querySelector('input'),
+		group: document.getElementById('group'), //got from server
 		send: document.getElementById('send') // send button
 	};
 
@@ -155,12 +156,15 @@
 
 		pc.createAnswer(onCreateAnswer);
 
+		app.done();
+
 	};
 
 	peer.setAnswer = function(answer) {
 		pc.setRemoteDescription(new RTCSessionDescription(answer));
 
 		// all it's done!
+		app.done();
 	};
 
 	peer.setIce = function(event) {
@@ -243,6 +247,7 @@
 		// dom reqnew
 		socket.on('resNew', function(channel) {
 			log('DEBUG: [APP] Socket resNew ', channel);
+			dom.group.textContent = channel;
 		});
 
 		// dom reqjoin
@@ -255,6 +260,10 @@
 		// got ice from peer
 		socket.on('resIce', peer.setIce);
 	}
+
+	app.done = function() {
+		document.querySelector('header').className = 'hide';
+	};
 
 	app.init = function() {
 		socket = io.connect('http://127.0.0.1:3000');
