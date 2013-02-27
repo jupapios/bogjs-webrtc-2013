@@ -56,8 +56,8 @@
 		 * if audio or video are not defined
 		 */
 		config = config || {};
-		config.audio = typeof config.audio == 'boolean' ? config.audio : true;
-		config.video = typeof config.video == 'boolean' ? config.video : true;
+		config.audio = !(config.audio === false); //true if config.audio is not defined
+		config.video = !(config.video === false); //true if config.video is not defined
 
 		navigator.getUserMedia(config, onGetUserMediaSuccess, onGetUserMediaFailed);
 
